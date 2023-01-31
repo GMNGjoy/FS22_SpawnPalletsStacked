@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="71">
+    <author>GMNGjoy</author>
+    <version>1.0.0.0</version>
+    <title>
+        <en>Mineshaft Boost</en>
+    </title>
+    <description>
+        <en>
+            <![CDATA[This script based mod increases the output speed of the Mineshaft on Silverrun Forest
+            
+Changelog:
+1.0.0.0 - Initial Release
+0.3.0.0 - Xml file config working
+0.2.0.0 - Add xml file config
+0.1.0.0 - Boost by hardcoded factor working
+0.0.0.1 - Initial commit
+]]>
+		</en>
+    </description>
+    <iconFilename>modHubIcon.dds</iconFilename>
+    <multiplayer supported="true" />
+
+	<extraSourceFiles>
+		<sourceFile filename="mineshaftBoost.lua"/>
+	</extraSourceFiles>
+</modDesc>

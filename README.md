@@ -5,7 +5,8 @@ If you've felt like the Mineshaft is a bit too slow (or to fast, depending on ho
 ## Installation Instructions
 1. Download this package from GitHub on the releases page, save the [`FS22_MineshaftBoost.zip` ] into your mod folder.
 2. Launch the game, and activate the mod.
-3. The first time the game launches with the mod active, it will create the appropriate config file in your modSettings folder, looking like this: ```xml
+3. The first time the game launches with the mod active, it will create the appropriate config file in your modSettings folder, looking like this: 
+```xml
 <mineshaftBoost>
     <!-- The factor will be applied to the current rate (2000 litersPerHour) -->
     <overrideFactor>2.0</overrideFactor>

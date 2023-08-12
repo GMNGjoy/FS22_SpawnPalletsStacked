@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="75">
     <author>GMNGjoy</author>
-    <version>0.9.0.0</version>
+    <version>0.9.0.1</version>
     <title>
         <en>Spawn Pallets Stacked</en>
     </title>
@@ -21,7 +21,7 @@ Since this mod will change the number of pallets spawning in any given spawn poi
 - "Limited Pallet Object Fix for Farming Simulator 22" by GtX (on GitHub)
 
 CAUTION
-- When adding this mod to any exisiting gamesave, if there are already pallets sitting in a spawn point, those pallets will be unaffected. This may cause any single row spawners to spawn more pallets - but will not stack them properly as the existing pallets would have spawened without the double up. Once the spawn point is cleared, the pallets will stack as expected.
+- When adding this mod to any existing gamesave, if there are already pallets sitting in a spawn point, those pallets will be unaffected. This may cause any single row spawner to spawn more pallets - but will not stack them properly as the existing pallets would have spawned without the double up. Once the spawn point is cleared, the pallets will stack as expected.
 
 License: CC0 1.0 Universal
 All code therein is &copy; GMNGjoy & shared via CC0 1.0 Universal; Please contact @gmngjoy on discord for any requests.

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<spawnPalletsStacked>
+    <settings>
+        <maxSpawnHeight>2.0</maxSpawnHeight>
+        <layerOffset>0.05</layerOffset>
+        <shouldDoubleUp>true</shouldDoubleUp>
+        <doubleUpShift>0.7</doubleUpShift>
+        <doubleUpGap>0.1</doubleUpGap>
+        <minWidthToDoubleUp>3.0</minWidthToDoubleUp>
+    </settings>
+    <adjustments>
+        <!-- base game on map placeables -->
+        <adjustment
+            filename="data/placeables/mapAlpine/sellingStationWool/sellingStationWool.xml"
+            doubleUpShift="0.4" 
+        />
+        <adjustment
+            filename="data/placeables/mapAlpine/chocolateFactory/chocolateFactory.xml"
+            doubleUpShift="0.6" 
+        />
+        <adjustment
+            filename="data/placeables/mapUS/productionPointGrainMill/productionPointGrainMill.xml"
+            shouldStack="true" 
+        />
+        
+        <!-- base game placeables -->
+        <adjustment
+            filename="data/placeables/lizard/productionPoints/carpenterEU/carpenterEU.xml"
+            doubleUpShift="0.6" 
+        />
+        <adjustment
+            filename="data/placeables/lizard/productionPoints/bakeryEU/bakeryEU.xml"
+            doubleUpShift="0.6" 
+        />
+        <adjustment
+            filename="data/placeables/lizard/productionPoints/dairyEU/dairyEU.xml"
+            spawnHeight="3.0" 
+        />
+        <adjustment
+            filename="data/placeables/lizard/productionPoints/grainMill/grainMill.xml"
+            doubleUpShift="0.4" 
+        />
+        <adjustment
+            filename="data/placeables/lizard/productionPoints/cerealFactory/cerealFactory.xml"
+            doubleUpShift="1.1" 
+        />
+        <adjustment
+            filename="data/placeables/lizard/productionPoints/raisinFactory/raisinFactory.xml"
+            doubleUpShift="0.6" 
+        />
+
+        <!-- pdlc -->
+        <adjustment
+            filename="pdlc_forestryPack/placeables/productionPoints/petAccessoriesFactory/petAccessoriesFactory.xml"
+            shouldStack="false" 
+        />
+
+        <!-- mods -->
+        <!-- <adjustment
+            filename="FS22_Castelnaud/maps/placeables/raisinFactory/raisinFactory.xml"
+            doubleUpGap="0.3"  
+        /> -->
+    </adjustments>
+</spawnPalletsStacked>

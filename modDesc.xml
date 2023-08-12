@@ -1,28 +1,51 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="71">
+<modDesc descVersion="75">
     <author>GMNGjoy</author>
-    <version>1.0.0.1</version>
+    <version>0.9.0.0</version>
     <title>
-        <en>Mineshaft Boost</en>
+        <en>Spawn Pallets Stacked</en>
     </title>
     <description>
         <en>
-            <![CDATA[This script based mod increases the output speed of the Mineshaft on Silverrun Forest
-            
+            <![CDATA[Why do most pallets only spawn on one layer? NO LONGER! This script mod solves the issue of not enough pallets being able to be spawned in any (base-game or mod) production or husbandry spawn point! 
+
+FEATURES
+- This mod will cause pallets to spawn stacked, up to 2m. This will cause some pallets (ie: Wool) to spawn 2 high, and others (ie: Oils) to spawn up to 5 high!
+- Automatic "Double Up" which will take any spawn point that is a single row, and if space allows - spawn two rows, with the same stacking! For example the base-game Grain Mill by default will spawns 5 pallets. Now, it spawns 30!
+- Spawning update applies to all Production buildings, Husbandries that spawn pallets (Chickens, Sheep, Bees), and Greenhouses.
+- All base-game productions, husbandries & greenhouses have been tested and adjusted to work as expected.
+- Related modded buildings will also get the same treatment, but will only do so if that mod doesn't already have stacked pallets.
+
+RECOMMENDED
+Since this mod will change the number of pallets spawning in any given spawn point from 2x-6x, there is a chance of pallets *not* spawning due to game pallet limits. 
+- "Limited Pallet Object Fix for Farming Simulator 22" by GtX (on GitHub)
+
+CAUTION
+- When adding this mod to any exisiting gamesave, if there are already pallets sitting in a spawn point, those pallets will be unaffected. This may cause any single row spawners to spawn more pallets - but will not stack them properly as the existing pallets would have spawened without the double up. Once the spawn point is cleared, the pallets will stack as expected.
+
+License: CC0 1.0 Universal
+All code therein is &copy; GMNGjoy & shared via CC0 1.0 Universal; Please contact @gmngjoy on discord for any requests.
+
 Changelog:
-1.0.0.1 - Corrected Modhub Icon
-1.0.0.0 - Initial Release
-0.3.0.0 - Xml file config working
-0.2.0.0 - Add xml file config
-0.1.0.0 - Boost by hardcoded factor working
+0.9.0.0 - Rewrite to ensure overrides working & odd-sized pallets handled
+0.8.1.0 - Corrected issue with config loader
+0.8.0.0 - Platinum Edition sawmill support (spawnPlaces limited by fillTypes)
+0.7.0.0 - Added XML config file loading & overrides
+0.6.1.0 - Added beehiveSpawner Support
+0.6.0.0 - All spawners spawning as expected, prepping new files for xml loading
+0.5.0.0 - Updated doubleUp to reflect actual placement angle
+0.4.0.0 - Double up single rows with overrides
+0.3.0.0 - Both Husbandry & Productions spawning at max height without dropping
+0.2.0.0 - Husbandrys working
+0.1.0.0 - Productions working
 0.0.0.1 - Initial commit
 ]]>
 		</en>
     </description>
-    <iconFilename>modHubIcon.dds</iconFilename>
+    <iconFilename>icon_spawnPalletsStacked.png</iconFilename>
     <multiplayer supported="true" />
 
 	<extraSourceFiles>
-		<sourceFile filename="mineshaftBoost.lua"/>
+		<sourceFile filename="spawnPalletsStacked.lua"/>
 	</extraSourceFiles>
 </modDesc>

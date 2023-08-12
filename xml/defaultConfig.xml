@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<spawnPalletsStacked>
+    <!-- all settings values are in meters unless otherwise specified -->
+    <settings>
+        <!--
+            maxSpawnHeight: this sets the height to which pallets can spawn
+            ~ minValue: 1.0 
+            ~ maxValue: 5.0
+            ~ default: 2.0
+        -->
+        <maxSpawnHeight>2.0</maxSpawnHeight>
+
+        <!--
+            layerOffset: how much of a gap is created between layers, this facilitates error-free spawning
+            ~ minValue: 0.0 
+            ~ maxValue: 0.5
+            ~ default: 0.1
+        -->
+        <layerOffset>0.05</layerOffset>
+
+        <!--
+            shouldDoubleUp: Should the script automatically double up single row spawn points?
+            ~ values: true/false
+            ~ default: true
+        -->
+        <shouldDoubleUp>true</shouldDoubleUp>
+
+        <!--
+            doubleUpShift: If a single spawn row is detected, this sets the "shift" that is applied to the first row to accomodate two rows
+            ~ minValue: 0.0 
+            ~ maxValue: 1.5
+            ~ default: 0.7
+        -->
+        <doubleUpShift>0.7</doubleUpShift>
+
+        <!--
+            doubleUpGap: This determines the spacing between the rows when a double up is applied; smaller numbers mean closer together rows
+            ~ minValue: 0
+            ~ maxValue: 1.0
+            ~ default: 0.1
+        -->
+        <doubleUpGap>0.1</doubleUpGap>
+
+        <!--
+            minWidthToDoubleUp: When detecting the width to double up, the minimum "width" of the spawn area that will allow space enough for pallets to be doubled up.
+            ~ minValue: 3.0 
+            ~ maxValue: 5.0
+            ~ default: 3.0
+        -->
+        <minWidthToDoubleUp>3.0</minWidthToDoubleUp>
+    </settings>
+    <adjustments>
+        <!-- 
+            for each of the adjustments, there are multiple props that can be set. If a prop is not set (not included) then it will use deafult values.
+
+            filename: The filename of the mod - the easiest way to get this is to either look in your log, or look in your savegame#/placeables file. The filename should match exactly. (the $ is not needed on $data)
+            spawnHeight: The maxSpawnHeight for this specific placeable; description above. 
+            doubleUpShift: Specifc to this mod, allows to tweak how the pallets spawn; description above.
+            doubleUpGap: Specifc to this mod, allows to tweak how the pallets spawn; description above.
+        -->
+        <adjustment
+            filename="FS22_noMansLand/placeables/sawmill/sawmill.xml"
+            spawnHeight="3.0" 
+        />
+
+        <!-- base game production building example
+        <adjustment
+            filename="data/placeables/lizard/productionPoints/carpenterEU/carpenterEU.xml"
+            doubleUpShift="0.6" 
+        />
+        -->
+
+        <!-- dlc production building example
+        <adjustment
+            filename="pdlc_forestryPack/placeables/productionPoints/petAccessoriesFactory/petAccessoriesFactory.xml"
+            shouldStack="false"
+        />
+        -->
+    </adjustments>
+</spawnPalletsStacked>

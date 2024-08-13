@@ -23,7 +23,7 @@ What this means is that if you have a production that has one "tall" item and mu
 - One other note is that "stacking" relies heavily on the pallet sizes being defined properly in the pallet XML files. If a pallet is defined to have an incorrect height (from what is visible), stacking may have issues.
 \
 \
-For an example of a "mod conflict" - Jos' Liftable Pallets mod (which replaces all basegame pallets to be liftable) has it's own configurations for each pallet, including the sizes of the pallets themselves. For an unknown reason - the WOOL pallet in that mod is listed to have a `2.0m` height, which means that if you have that mod installed - you won't see wool pallets stacking when they spawn,  based on the note above on how that stacking is calculated.
+For an example of a "mod conflict" - Jos' [Liftable Pallets](https://www.farming-simulator.com/mod.php?lang=en&country=us&mod_id=237651&title=fs2022) mod (which replaces all basegame pallets to be liftable) has it's own configurations for each pallet, including the sizes of the pallets themselves. For an unknown reason - the WOOL pallet in that mod is listed to have a `2.0m` height, which means that if you have that mod installed - you won't see wool pallets stacking when they spawn, based on how stacking is calculated (detailed above).
 
 
 ## Installation Instructions

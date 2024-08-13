@@ -148,16 +148,41 @@ _Stacked Pallets at the Platinum Expansion placeable sawmill_
 - Added safety check for missing pallet data in edited spawn points potentially causing a game crash
 - Fixed neverStack list for Platinum pallets
 
-1.0.0.0 - Release to ModHub
-0.9.0.0 - Rewrite to ensure overrides working & odd-sized pallets handled
-0.8.1.0 - Corrected issue with config loader
-0.8.0.0 - Platinum Edition sawmill support (spawnPlaces limited by fillTypes)
-0.7.0.0 - Added XML config file loading & overrides
-0.6.1.0 - Added beehiveSpawner Support
-0.6.0.0 - All spawners spawning as expected, prepping new files for xml loading
-0.5.0.0 - Updated doubleUp to reflect actual placement angle
-0.4.0.0 - Double up single rows with overrides
-0.3.0.0 - Both Husbandry & Productions spawning at max height without dropping
-0.2.0.0 - Husbandrys working
-0.1.0.0 - Productions working
-0.0.0.1 - Initial commit
+1.0.0.0
+- Release to ModHub
+
+0.9.0.0
+- Rewrite to ensure overrides working & odd-sized pallets handled
+
+0.8.1.0
+- Corrected issue with config loader
+
+0.8.0.0
+- Platinum Edition sawmill support (spawnPlaces limited by fillTypes)
+
+0.7.0.0
+- Added XML config file loading & overrides
+
+0.6.1.0
+- Added beehiveSpawner Support
+
+0.6.0.0
+- All spawners spawning as expected, prepping new files for xml loading
+
+0.5.0.0
+- Updated doubleUp to reflect actual placement angle
+
+0.4.0.0
+- Double up single rows with overrides
+
+0.3.0.0
+- Both Husbandry & Productions spawning at max height without dropping
+
+0.2.0.0
+- Husbandries working
+
+0.1.0.0
+- Productions working
+
+0.0.0.1
+- Initial commit

@@ -16,7 +16,7 @@ Why do the pallets only spawn on one layer? NO LONGER! This script mod solves th
 
 
 ### Note on Stacking with productions with multiple products
-- Many productions have multiple products that can be output - like a greenhouse, or a bakery. To calculate how many "layers" that can be created (without the stacks being too high), the script will calculate the "tallest" pallet that _may_ spawn, and base how many layers on that height.
+- Many productions have multiple products that can be output - like a greenhouse, or a bakery. To calculate how many "layers" that can be created (without the stacks being too high), the script will calculate the "tallest" pallet that _may_ spawn, and base how many layers the script will create within the `maxSpawnHeight` for that tallest item.
 \
 \
 What this means is that if you have a production that has one "tall" item and multiple "short" items - the layering will be based on the tallest item. For a concrete example that was brought up in an [issue](https://github.com/GMNGjoy/FS22_SpawnPalletsStacked/issues/2) - The Greenhouse mod "Greenhouses with Pallets" does _not_ stack pallets, but this is because of the reason above, not because of the mod not working - those greenhouses include _Tree Saplings_ as one of the potential pallets that can spawn, which means that the "tallest" pallet that can spawn (2.7m) is actually taller than the preset `maxSpawnHeight` setting (2.0m). You can override that specific setting in your configuration file should you choose to, following the **Installation Instructions** below.

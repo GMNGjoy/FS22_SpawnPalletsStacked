@@ -115,25 +115,25 @@ Special thanks to [@loki79uk](https://github.com/loki79uk/) - the code used here
 
 ## Screenshots
 
-![Stacked Pallets at the Spinnary](/_screenshots/SpawnPallets_spinnary_01.png)
+![Stacked Pallets at the Spinnary](/_screenshots/SpawnPallets_spinnary_01.jpg)
 _Stacked Pallets at the Spinnary_
 
-![Stacked Pallets at the Greenhouse](/_screenshots/SpawnPallets_greenhouse_02.png)
+![Stacked Pallets at the Greenhouse](/_screenshots/SpawnPallets_greenhouse_02.jpg)
 _Stacked Pallets at the Spinnary_
 
-![Stacked Pallets at the Chicken Coop](/_screenshots/SpawnPallets_chickens_03.png)
+![Stacked Pallets at the Chicken Coop](/_screenshots/SpawnPallets_chickens_03.jpg)
 _Stacked Pallets at the Chicken Coop_
 
-![Stacked Pallets at the Erlengrat Chocolatier](/_screenshots/SpawnPallets_chocolate_04.png)
+![Stacked Pallets at the Erlengrat Chocolatier](/_screenshots/SpawnPallets_chocolate_04.jpg)
 _Stacked Pallets at the Erlengrat Chocolatier_
 
-![Stacked Pallets at the Haut Beyleron Bakery](/_screenshots/SpawnPallets_cakes_05.png)
+![Stacked Pallets at the Haut Beyleron Bakery](/_screenshots/SpawnPallets_cakes_05.jpg)
 _Stacked Pallets at the Haut Beyleron Bakery_
 
-![Stacked Pallets at the Silverrun Sawmill](/_screenshots/SpawnPallets_sawmill_06.png)
+![Stacked Pallets at the Silverrun Sawmill](/_screenshots/SpawnPallets_sawmill_06.jpg)
 _Stacked Pallets at the Silverrun Sawmill_
 
-![Stacked Pallets at the Castelnaud Winery](/_screenshots/SpawnPallets_winery_07.png)
+![Stacked Pallets at the Castelnaud Winery](/_screenshots/SpawnPallets_winery_07.jpg)
 _Stacked Pallets at the Castelnaud Winery_
 
 ![Stacked Pallets in the Platinum Expansion placeable sawmill](/_screenshots/this-is-how-you-do-a-sawmill.png)
@@ -143,10 +143,11 @@ _Stacked Pallets at the Platinum Expansion placeable sawmill_
 
 ## Changelog
 1.1.0.0
-  - Updated safety check for stacking pallets on spawners with already stacked pallets
-  - Added the ability to enable debugMode & debugStopMultiLayer from the SpawnPalletsStacked.xml config file
-  - Added safety check for missing pallet data in edited spawn points potentially causing a game crash
-  - Fixed neverStack list for Platinum pallets
+- Updated safety check for stacking pallets on spawners with already stacked pallets
+- Added the ability to enable debugMode & debugStopMultiLayer from the SpawnPalletsStacked.xml config file
+- Added safety check for missing pallet data in edited spawn points potentially causing a game crash
+- Fixed neverStack list for Platinum pallets
+
 1.0.0.0 - Release to ModHub
 0.9.0.0 - Rewrite to ensure overrides working & odd-sized pallets handled
 0.8.1.0 - Corrected issue with config loader

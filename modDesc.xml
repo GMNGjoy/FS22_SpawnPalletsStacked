@@ -1,46 +1,112 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="75">
+<modDesc descVersion="79">
     <author>GMNGjoy</author>
-    <version>0.9.0.1</version>
+    <version>1.1.0.0</version>
     <title>
         <en>Spawn Pallets Stacked</en>
+        <de>Gestapelte Paletten</de>
+        <fr>Palettes D'Apparition Empilées</fr>
+        <es>Paletas De Generación Apiladas</es>
     </title>
     <description>
-        <en>
-            <![CDATA[Why do most pallets only spawn on one layer? NO LONGER! This script mod solves the issue of not enough pallets being able to be spawned in any (base-game or mod) production or husbandry spawn point! 
+        <en><![CDATA[Why do most pallets only spawn on one layer? NO LONGER! This script mod solves the issue of not enough pallets being able to be spawned in any (base-game or mod) production or husbandry spawn point!
 
 FEATURES
-- This mod will cause pallets to spawn stacked, up to 2m. This will cause some pallets (ie: Wool) to spawn 2 high, and others (ie: Oils) to spawn up to 5 high!
+- This mod will update all pallets to spawn stacked, up to 2m. This will cause some pallets (ie: Wool) to spawn 2 high, and others (ie: Oils) to spawn up to 5 high!
 - Automatic "Double Up" which will take any spawn point that is a single row, and if space allows - spawn two rows, with the same stacking! For example the base-game Grain Mill by default will spawns 5 pallets. Now, it spawns 30!
-- Spawning update applies to all Production buildings, Husbandries that spawn pallets (Chickens, Sheep, Bees), and Greenhouses.
+- Spawning update applies to all Production buildings, Husbandries that spawn pallets (Chickens, Sheep & Bees), and Greenhouses.
 - All base-game productions, husbandries & greenhouses have been tested and adjusted to work as expected.
-- Related modded buildings will also get the same treatment, but will only do so if that mod doesn't already have stacked pallets.
+- Related mod buildings will also get the same treatment, but will only do so if that mod doesn't already have stacked pallets.
 
 RECOMMENDED
-Since this mod will change the number of pallets spawning in any given spawn point from 2x-6x, there is a chance of pallets *not* spawning due to game pallet limits. 
+Due to the fact that this mod will change the number of pallets spawning in any given spawn point from 2x-6x, there is a chance of pallets *not* spawning due to game pallet limits.
 - "Limited Pallet Object Fix for Farming Simulator 22" by GtX (on GitHub)
 
 CAUTION
-- When adding this mod to any existing gamesave, if there are already pallets sitting in a spawn point, those pallets will be unaffected. This may cause any single row spawner to spawn more pallets - but will not stack them properly as the existing pallets would have spawned without the double up. Once the spawn point is cleared, the pallets will stack as expected.
+- When adding this mod to any existing gamesave, if there are already pallets sitting in a spawn point, those pallets will be unaffected. This may cause any single row spawner to spawn more pallets - but will not stack them properly as the existing pallets would have spawned without the "double up" feature. Once the spawn point is cleared, the pallets will stack as expected.
+
+CUSTOMIZATION
+- Spawning can be customized for any basegame or modded building via a configuration file that is automatically added to your modSettings folder. See that file for instructions on how spawning can be customized.
+
+CHANGELOG 1.1.0.0
+- Updated safety check for stacking pallets on spawners with already stacked pallets
+- Added the ability to enable debugMode & debugStopMultiLayer from the SpawnPalletsStacked.xml config file
+- Added safety check for missing pallet data in edited spawn points potentially causing a game crash
+- Fixed neverStack list for Platinum pallets
 
 License: CC0 1.0 Universal
 All code therein is &copy; GMNGjoy & shared via CC0 1.0 Universal; Please contact @gmngjoy on discord for any requests.
-
-Changelog:
-0.9.0.0 - Rewrite to ensure overrides working & odd-sized pallets handled
-0.8.1.0 - Corrected issue with config loader
-0.8.0.0 - Platinum Edition sawmill support (spawnPlaces limited by fillTypes)
-0.7.0.0 - Added XML config file loading & overrides
-0.6.1.0 - Added beehiveSpawner Support
-0.6.0.0 - All spawners spawning as expected, prepping new files for xml loading
-0.5.0.0 - Updated doubleUp to reflect actual placement angle
-0.4.0.0 - Double up single rows with overrides
-0.3.0.0 - Both Husbandry & Productions spawning at max height without dropping
-0.2.0.0 - Husbandrys working
-0.1.0.0 - Productions working
-0.0.0.1 - Initial commit
 ]]>
 		</en>
+        <de><![CDATA[Warum entstehen die meisten Paletten nur auf einer Ebene? NICHT MEHR! Dieser Skript-Mod löst das Problem, dass an keinem Produktions- oder Haltungs-Spawnpunkt (Basisspiel oder Mod) genügend Paletten gespawnt werden können!
+
+MERKMALE
+- Diser Mod verändert wie Palette spawnen werden, nicht mehr nur in einer Reihe sondern bis zu 2meter. Einige Paletten wie z.b. Wolle spawnen 2 übereinander, bei Öl oder anderen kann es bis zu 5 übereinander werden.
+- Automatisches "Double Up", dies führt dazu Spawn bereiche mit nur einer Reihe nun, sofern Platz ist, eine zweite Reihe Paletten spawnen können. Zum Beispiel die GetreideMühle spawnt 5 paletten, mit diesem Mod nun ganze 30 Paletten.
+- Das Spawnen der Paletten wird auf alle Produktionen, Ställe und Gewächshäuser.
+- Alle Standard Spiel Produktionen, Ställe und Gewächshäuser wurden getestet und angepasst damit es wie gewollt funktioniert.
+- Zugehörige Mod Gebäude werden auch angepasst, sofern nicht schon gestapelte Paletten vorhanden sind.
+
+EMPFOHLEN
+Aufgrund der Tatsache, dass dieser Mod die Anzahl der Paletten, die an einem bestimmten Spawnpunkt erscheinen, von 2x auf 6x ändert, besteht die Möglichkeit, dass Paletten aufgrund der Palettenlimits im Spiel *nicht* spawnen.
+- „Limited Pallet Object Fix for Farming Simulator 22“ von GtX (auf GitHub)
+
+VORSICHT
+- Wenn Sie diesen Mod zu einem vorhandenen Spielstand hinzufügen und sich bereits Paletten an einem Spawnpunkt befinden, sind diese Paletten nicht betroffen. Dies kann dazu führen, dass jeder einreihige Spawner mehr Paletten spawnt – diese werden jedoch nicht richtig gestapelt, da die vorhandenen Paletten ohne die Funktion „Verdoppeln“ gespawnt wären. Sobald der Spawnpunkt geräumt ist, werden die Paletten wie erwartet gestapelt.
+
+ANPASSUNG
+- Das Spawnen kann für jedes Basisspiel oder jedes modifizierte Gebäude über eine Konfigurationsdatei angepasst werden, die automatisch zu Ihrem Ordner „modSettings“ hinzugefügt wird. In dieser Datei finden Sie Anweisungen, wie das Spawnen angepasst werden kann.
+
+Lizenz: CC0 1.0 Universal
+Der gesamte darin enthaltene Code ist &copy; GMNGjoy & geteilt über CC0 1.0 Universal; Bitte kontaktieren Sie @gmngjoy auf Discord für alle Anfragen.
+]]>
+        </de>
+        <fr><![CDATA[Pourquoi la plupart des palettes n’apparaissent-elles que sur une seule couche ? PLUS MAINTENANT! Ce mod de script résout le problème du manque de palettes pouvant être générées dans n'importe quel point d'apparition de production ou d'élevage (jeu de base ou mod) !
+
+CARACTÉRISTIQUES
+- Ce mod mettra à jour toutes les palettes pour qu'elles apparaissent empilées, jusqu'à 2 m. Cela fera apparaître certaines palettes (par exemple : Laine) jusqu'à 2 de haut, et d'autres (par exemple : Huiles) jusqu'à 5 de haut !
+- "Double Up" automatique qui prendra n'importe quel point d'apparition constitué d'une seule ligne, et si l'espace le permet - générera deux lignes, avec le même empilement ! Par exemple, le jeu de base Grain Mill génère par défaut 5 palettes. Maintenant, il en génère 30 !
+- La mise à jour du frai s'applique à tous les bâtiments de production, aux élevages qui génèrent des palettes (poulets, moutons et abeilles) et aux serres.
+- Toutes les productions, élevages et serres du jeu de base ont été testés et ajustés pour fonctionner comme prévu.
+- Les bâtiments de mods associés bénéficieront également du même traitement, mais ne le seront que si ce mod n'a pas déjà de palettes empilées.
+
+RECOMMANDÉ
+Étant donné que ce mod modifiera le nombre de palettes apparaissant dans un point d'apparition donné de 2x à 6x, il y a une chance que les palettes *ne* n'apparaissent pas en raison des limites de palettes du jeu.
+- "Correction limitée d'objets de palettes pour Farming Simulator 22" par GtX (sur GitHub)
+
+PRUDENCE
+- Lors de l'ajout de ce mod à une sauvegarde de jeu existante, s'il y a déjà des palettes dans un point d'apparition, ces palettes ne seront pas affectées. Cela peut amener n'importe quel générateur à une seule rangée à générer plus de palettes - mais ne les empilera pas correctement car les palettes existantes seraient apparues sans la fonction "doubler". Une fois le point d'apparition effacé, les palettes s'empileront comme prévu.
+
+PERSONNALISATION
+- La reproduction peut être personnalisée pour n'importe quel jeu de base ou bâtiment modifié via un fichier de configuration qui est automatiquement ajouté à votre dossier modSettings. Consultez ce fichier pour obtenir des instructions sur la façon dont la génération peut être personnalisée.
+
+Licence : CC0 1.0 Universelle
+Tout le code qu'il contient est &copy; GMNGjoy et partagé via CC0 1.0 Universal ; Merci de contacter @gmngjoy sur Discord pour toute demande.
+]]>
+        </fr>
+        <es><![CDATA[¿Por qué la mayoría de las paletas solo aparecen en una capa? ¡NO MÁS! ¡Este mod de script resuelve el problema de que no se puedan generar suficientes paletas en ningún punto de generación de producción o cría (juego base o mod)!
+
+CARACTERÍSTICAS
+- Este mod actualizará todas las paletas para que aparezcan apiladas, hasta 2 m. ¡Esto hará que algunas paletas (es decir, Lana) generen 2 de altura y otras (es decir, Aceites) generen hasta 5 de altura!
+- "Double Up" automático que tomará cualquier punto de generación que sea una sola fila y, si el espacio lo permite, generará dos filas, ¡con la misma acumulación! Por ejemplo, el juego base Grain Mill generará de forma predeterminada 5 paletas. ¡Ahora genera 30!
+- La actualización de generación se aplica a todos los edificios de producción, granjas que generan paletas (pollos, ovejas y abejas) e invernaderos.
+- Todas las producciones, crías e invernaderos del juego base han sido probadas y ajustadas para que funcionen como se esperaba.
+- Los edificios mod relacionados también recibirán el mismo tratamiento, pero solo lo harán si ese mod aún no tiene paletas apiladas.
+
+RECOMENDADO
+Debido al hecho de que este mod cambiará la cantidad de paletas que se generan en cualquier punto de generación determinado de 2x a 6x, existe la posibilidad de que las paletas *no* se generen debido a los límites de paletas del juego.
+- "Solución limitada de objetos de paleta para Farming Simulator 22" de GtX (en GitHub)
+
+PRECAUCIÓN
+- Al agregar este mod a cualquier juego existente, si ya hay paletas en un punto de generación, esas paletas no se verán afectadas. Esto puede hacer que cualquier generador de una sola fila genere más paletas, pero no las apilará correctamente ya que las paletas existentes se habrían generado sin la función "doblar". Una vez que se despeja el punto de generación, las paletas se apilarán como se esperaba.
+
+PERSONALIZACIÓN
+- El desove se puede personalizar para cualquier juego base o edificio modificado a través de un archivo de configuración que se agrega automáticamente a su carpeta modSettings. Consulte ese archivo para obtener instrucciones sobre cómo se puede personalizar el desove.
+
+Licencia: CC0 1.0 Universal
+Todo el código que contiene es &copy; GMNGjoy y compartido a través de CC0 1.0 Universal; Comuníquese con @gmngjoy en discordia para cualquier solicitud.
+]]>
+        </es>
     </description>
     <iconFilename>icon_spawnPalletsStacked.png</iconFilename>
     <multiplayer supported="true" />

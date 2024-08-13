@@ -1,7 +1,9 @@
---- Forage Harvester Straw Pickup
----@url https://www.farming-simulator.com/mod.php?lang=en&country=ie&mod_id=271847&title=fs2022
----@author GMNGjoy
----@copyright 07/01/2023
+--- Spawn Pallets Stacked
+-- @author GMNGjoy
+-- @copyright 08/12/2024
+-- @contact https://github.com/GMNGjoy/FS22_SpawnPalletsStacked
+-- @license CC0 1.0 Universal
+
 SpawnPalletsStacked = {}
 SpawnPalletsStacked.path = g_currentModDirectory;
 SpawnPalletsStacked.modName = g_currentModName;
@@ -22,56 +24,9 @@ SpawnPalletsStacked.noStackPalletType = {
 	"CATTREE",
 }
 
--- each of these adjustments will override the defaults above only for that item
-SpawnPalletsStacked.baseAdjustments = {
-	{
-		filename = "FS22_noMansLand/placeables/sawmill/sawmill.xml",
-		spawnHeight = 3.0,
-	},
-	{
-		filename = "data/placeables/lizard/productionPoints/carpenterEU/carpenterEU.xml",
-		doubleUpShift = 0.6,
-	},
-	{
-		filename = "data/placeables/lizard/productionPoints/bakeryEU/bakeryEU.xml",
-		spawnHeight = 3.0,
-	},
-	{
-		filename = "data/placeables/lizard/productionPoints/bakeryUS/bakeryUS.xml",
-		spawnHeight = 3.0,
-	},
-	{
-		filename = "data/placeables/lizard/productionPoints/dairyEU/dairyEU.xml",
-		doubleUpShift = 0.4,
-		spawnHeight = 2.5,
-	},
-	{
-		filename = "data/placeables/lizard/productionPoints/dairyUS/dairyUS.xml",
-		spawnHeight = 2.5,
-	},
-	{
-		filename = "data/placeables/lizard/productionPoints/grainMill/grainMill.xml",
-		doubleUpShift = 0.4,
-	},
-	{
-		filename = "data/placeables/lizard/productionPoints/cerealFactory/cerealFactory.xml",
-		doubleUpShift = 1.1,
-	},
-	{
-		filename = "data/placeables/lizard/productionPoints/raisinFactory/raisinFactory.xml",
-		doubleUpShift = 0.6,
-	},
-	{
-		filename = "data/placeables/lizard/beeHives/beeHivePalletSpawner/beeHivePalletSpawner.xml",
-		shouldDoubleUp = true,
-		spawnHeight = 2.5,
-		doubleUpShift = 0.6,
-	},
-}
-
 --- Return the valid xml name for any given xml path;
 --- confirms via the store manager & dlc directories to return the actual path.
----@param configName string 
+---@param configName string
 ---@return string|nil
 function SpawnPalletsStacked.getValidXmlName(configName)
 
@@ -79,12 +34,12 @@ function SpawnPalletsStacked.getValidXmlName(configName)
 	if g_storeManager:getItemByXMLFilename(xmlFilename) then
 		return xmlFilename
 	end
-	
+
 	xmlFilename = g_modsDirectory..configName
 	if g_storeManager:getItemByXMLFilename(xmlFilename) then
 		return xmlFilename
 	end
-	
+
 	for i = 1, #g_dlcsDirectories do
 		local dlcsDir = g_dlcsDirectories[i].path
 		xmlFilename = dlcsDir..configName
@@ -105,7 +60,7 @@ function SpawnPalletsStacked.shallowCopy(t)
 	return setmetatable(u, getmetatable(t))
 end
 
---- Simple shallow copy method to make sure we copy and not pass a reference
+--- Simple method to check the length of the array
 ---@param t table
 ---@return table
 function SpawnPalletsStacked.tableLength(t)
@@ -119,7 +74,7 @@ end
 ---@param number number incoming float to parse to a smaller float
 ---@param digitPosition number length to trim to
 ---@return number
-function SpawnPalletsStacked.roundDecimal(number, digitPosition) 
+function SpawnPalletsStacked.roundDecimal(number, digitPosition)
 	local precision = math.pow(10, digitPosition)
 	number = number + (precision / 2);
 	return math.floor(number / precision) * precision
@@ -129,12 +84,12 @@ end
 ---@param xmlFilename string
 ---@return table
 function SpawnPalletsStacked.getAdjustment(xmlFilename)
-	
+
 	-- load in the adjustment which may be used to affect the spawn height
 	local thisAdjustment = nil
 	for i, adjustment in ipairs(SpawnPalletsStacked.config.adjustments) do
 		if thisAdjustment ~= nil then goto continue end;
-		if adjustment.filename == xmlFilename then 
+		if adjustment.filename == xmlFilename then
 			thisAdjustment = adjustment
 		end
 		::continue::
@@ -144,10 +99,7 @@ function SpawnPalletsStacked.getAdjustment(xmlFilename)
 	if thisAdjustment == nil then
 		thisAdjustment = {}
 	end
-	
-	-- printf("!!!! found adjustment for %s", xmlFilename);
-	-- DebugUtil.printTableRecursively(thisAdjustment)
-	
+
 	return thisAdjustment
 end
 
@@ -158,7 +110,7 @@ function SpawnPalletsStacked.getMaxSpawnHeight(adjustment)
 
 	-- load the custom maxSpawnHeight
 	local maxSpawnHeight = SpawnPalletsStacked.config.maxSpawnHeight
-	if adjustment ~= nil then 
+	if adjustment ~= nil then
 		if adjustment.spawnHeight then maxSpawnHeight = adjustment.spawnHeight end
 	end
 
@@ -173,12 +125,12 @@ function SpawnPalletsStacked.getNumPalletLayers(palletHeight, maxSpawnHeight)
 	local numPalletLayers = 0
 	local layerOffset = SpawnPalletsStacked.roundDecimal(palletHeight, -1) + 0.1
 	local totalHeight = layerOffset
-	
+
 	while totalHeight <= maxSpawnHeight do
 		numPalletLayers = numPalletLayers + 1
 		totalHeight = totalHeight + layerOffset
 	end
-	
+
 	return numPalletLayers
 end
 
@@ -186,7 +138,7 @@ end
 ---@param palletType string
 ---@return boolean
 function SpawnPalletsStacked.shouldStackPallet(palletType)
-	
+
 	-- load in the adjustment which may be used to affect the spawn height
 	local shouldStack = true
 	for i, noStackType in ipairs(SpawnPalletsStacked.noStackPalletType) do
@@ -209,29 +161,20 @@ function SpawnPalletsStacked.updateSingleProduction(productionItem)
 	if not validXmlFilename then return end
 
     -- allow a bit of debug
-	if SpawnPalletsStacked.debugFull then 
+	if SpawnPalletsStacked.debugFull then
 		printf("---- SPS Production: %s [%s]", productionItem:getName(), validXmlFilename)
 	end
 
     -- get the production's current position
     local productionPosition = productionItem.position
-    
+
     -- get the productions calculated spawn locations
     local specProductionPoint = productionItem.spec_productionPoint.productionPoint
 	local palletSpawner = specProductionPoint.palletSpawner
 
-	-- if string.find(validXmlFilename, "forestryPack/placeables/productionPoints/sawmillPlaceable") then
-	-- 	printf("*************************************************")
-	-- 	printf("**** Woodmizer: %s", productionItem:getName())
-	-- 	-- DebugUtil.printTableRecursively(palletSpawner)
-	-- 	-- printf("*************************************************")
-	-- 	DebugUtil.printTableRecursively(palletSpawner.fillTypeToSpawnPlaces)
-	-- 	printf("*************************************************")
-	-- end
-
 	-- exit if we don't need to continue
 	if palletSpawner == nil then
-		if SpawnPalletsStacked.debugFull then 
+		if SpawnPalletsStacked.debugFull then
 			print("---- - SKIP no pallets")
 		end
 		return
@@ -241,25 +184,27 @@ function SpawnPalletsStacked.updateSingleProduction(productionItem)
 	local outputFillTypePallets = specProductionPoint.outputFillTypeIdsToPallets
 
 	-- specialized spawner that limits spawning items individual spawnPlaces
-	if palletSpawner.fillTypeToSpawnPlaces and SpawnPalletsStacked.tableLength(palletSpawner.fillTypeToSpawnPlaces) > 0 then 
-		-- printf("*************************************************")
-		-- printf("**** FillTypeToSpawnPlaces")
-		-- DebugUtil.printTableRecursively(palletSpawner.fillTypeToSpawnPlaces)
-		-- printf("*************************************************")
-	
-		if SpawnPalletsStacked.debugFull then 
+	if palletSpawner.fillTypeToSpawnPlaces and SpawnPalletsStacked.tableLength(palletSpawner.fillTypeToSpawnPlaces) > 0 then
+
+		if SpawnPalletsStacked.debugFull then
 			printf("---- SPS Production: Handling multiple spawn places by fill type for %s", productionItem:getName())
 		end
 
 		for fillTypeId, spawnPlaces in pairs(palletSpawner.fillTypeToSpawnPlaces) do
 			-- determine the max pallet height from all pallets to spawn
 			local pallet = outputFillTypePallets[fillTypeId]
-			local shouldStack = true
 			local palletTypeName = g_fillTypeManager.fillTypes[fillTypeId].name
+
+			if not pallet then
+				printf("---- SPS Production: Skipping fillTypeId: %s; No available pallet for %s", fillTypeId, palletTypeName)
+				goto skipPalletType
+			end
+
+			local shouldStack = true
 			local palletSize = pallet.size
 
 			if shouldStack and not SpawnPalletsStacked.shouldStackPallet(palletTypeName) then
-				if SpawnPalletsStacked.debugFull then 
+				if SpawnPalletsStacked.debugFull then
 					printf("---- - NOT STACKING! %s", palletTypeName)
 				end
 				shouldStack = false
@@ -281,15 +226,16 @@ function SpawnPalletsStacked.updateSingleProduction(productionItem)
 
 			-- public debug
 			printf("---- SPS Production: %s Spawner: %s  [doubleUp:%s, stacking:%s]", productionItem:getName(), palletTypeName, adjustment.shouldDoubleUp, adjustment.shouldStack)
-			
+
 			-- call the shared function to update the layers of spawned pallets
 			SpawnPalletsStacked.updateSingleSpawner(spawnPlaces, productionPosition.y, numPalletLayers, roundedPalletHeight, roundedPalletLength, adjustment)
-		
+
+			::skipPalletType::
 		end -- for fillTypeId, spawnPlaces in pairs(palletSpawner.fillTypeToSpawnPlaces)
-	
+
 	else
-	
-		if SpawnPalletsStacked.debugFull then 
+
+		if SpawnPalletsStacked.debugFull then
 			printf("---- SPS Production: Handling single spawn place for %s", productionItem:getName())
 		end
 
@@ -309,13 +255,13 @@ function SpawnPalletsStacked.updateSingleProduction(productionItem)
 				maxPalletLength = palletSize.length
 			end
 
-			if SpawnPalletsStacked.debugFull then 
-				printf("---- - palletSize %s", palletTypeName) 
+			if SpawnPalletsStacked.debugFull then
+				printf("---- - palletSize %s", palletTypeName)
 				DebugUtil.printTableRecursively(palletSize)
-			end 
+			end
 
 			if shouldStack and not SpawnPalletsStacked.shouldStackPallet(palletTypeName) then
-				if SpawnPalletsStacked.debugFull then 
+				if SpawnPalletsStacked.debugFull then
 					printf("---- - NOT STACKING! %s", palletTypeName)
 				end
 				shouldStack = false
@@ -345,7 +291,7 @@ function SpawnPalletsStacked.updateSingleProduction(productionItem)
 
 		-- public debug
 		printf("---- SPS Production: spawnPlaces %s [doubleUp:%s, stacking:%s]", productionItem:getName(), adjustment.shouldDoubleUp, adjustment.shouldStack)
-		
+
 		-- call the shared function to update the layers of spawned pallets
 		SpawnPalletsStacked.updateSingleSpawner(palletSpawner.spawnPlaces, productionPosition.y, numPalletLayers, roundedPalletHeight, roundedPalletLength, adjustment)
 
@@ -363,7 +309,7 @@ function SpawnPalletsStacked.updateSingleHusbandry(husbandryItem)
 	-- exit out of we couldn't find the filename
 	if not validXmlFilename then return end
 
-	if SpawnPalletsStacked.debugFull then 
+	if SpawnPalletsStacked.debugFull then
 		printf("---- Husbandry: %s [%s]", husbandryItem:getName(), validXmlFilename)
 	end
 
@@ -373,7 +319,7 @@ function SpawnPalletsStacked.updateSingleHusbandry(husbandryItem)
 
 	-- skip if the husbandry has no pallets
 	if not SpecializationUtil.hasSpecialization(PlaceableHusbandryPallets, husbandryItem.specializations) then
-		if SpawnPalletsStacked.debugFull then 
+		if SpawnPalletsStacked.debugFull then
 			print("---- SKIP - no pallets")
 		end
 		return
@@ -397,12 +343,12 @@ function SpawnPalletsStacked.updateSingleHusbandry(husbandryItem)
 
 	-- determine how many layers to spawn; layer 0 is the existing layer
 	local numPalletLayers = SpawnPalletsStacked.getNumPalletLayers(roundedPalletHeight, maxSpawnHeight)
-	
+
 	-- If we have pallets to spawn, let's update the numbers
 	if specHusbandryPallets.maxNumPallets ~= nil then
 		local currentMaxNum = specHusbandryPallets.maxNumPallets
         local newMaxNum = currentMaxNum * numPalletLayers
-		
+
         -- update the max number of pallets
         specHusbandryPallets.maxNumPallets = newMaxNum
 
@@ -411,7 +357,7 @@ function SpawnPalletsStacked.updateSingleHusbandry(husbandryItem)
             husbandryName,
             newMaxNum
 			)
-		end		
+		end
 	end
 
 	-- call the shared function to update the layers of spawned pallets
@@ -430,7 +376,7 @@ function SpawnPalletsStacked.updateSingleBeehiveSpawner(beehiveSpawnerItem)
 	if not validXmlFilename then return end
 
     -- allow a bit of debug
-	if SpawnPalletsStacked.debugFull then 
+	if SpawnPalletsStacked.debugFull then
 		printf("---- SPS BeehiveSpawner: %s [%s]", beehiveSpawnerItem:getName(), validXmlFilename)
 	end
 
@@ -455,7 +401,7 @@ function SpawnPalletsStacked.updateSingleBeehiveSpawner(beehiveSpawnerItem)
 
 	-- determine how many layers to spawn; layer 0 is the existing layer
 	local numPalletLayers = SpawnPalletsStacked.getNumPalletLayers(roundedPalletHeight, maxSpawnHeight)
-	
+
 	-- call the shared function to update the layers of spawned pallets
 	SpawnPalletsStacked.updateSingleSpawner(palletSpawner.spawnPlaces, productionPosition.y, numPalletLayers, roundedPalletHeight, roundedPalletLength, adjustment)
 end
@@ -466,7 +412,7 @@ end
 ---@param numberOfLayers number how many additional layers to spawn
 ---@param palletHeight number height of a single pallet
 ---@param palletLength number length of a single pallet
----@param adjustment table 
+---@param adjustment table
 function SpawnPalletsStacked.updateSingleSpawner(spawnPlaces, rootY, numberOfLayers, palletHeight, palletLength, adjustment)
 
 	if SpawnPalletsStacked.debugFull then
@@ -485,76 +431,77 @@ function SpawnPalletsStacked.updateSingleSpawner(spawnPlaces, rootY, numberOfLay
 		if spawnDifference > SpawnPalletsStacked.stackedLimitY then
 			if SpawnPalletsStacked.debugFull then
 				printf("---- SPS Already Stacked - difference:%s", spawnDifference)
-			end 
+			end
 			alreadyHasStackedPallets = true
 		end
 	end
-	
+
 	-- allow overrides from config file above
 	local doubleUpBack = SpawnPalletsStacked.config.doubleUpShift
 	local doubleUpForward = math.abs(doubleUpBack - (palletLength + SpawnPalletsStacked.config.doubleUpGap))
 	local shouldDoubleUp = SpawnPalletsStacked.config.shouldDoubleUp
 	local shouldStack = true
-	if adjustment ~= nil then 
-		
-		if SpawnPalletsStacked.debugFull then 
-			printf("---- - Adjustment") 
+	if adjustment ~= nil then
+
+		if SpawnPalletsStacked.debugFull then
+			printf("---- - Adjustment")
 			DebugUtil.printTableRecursively(adjustment)
-		end 
+		end
 
 		if adjustment.shouldStack == false then shouldStack = false end
+		if alreadyHasStackedPallets == true then shouldStack = false end
 		if adjustment.shouldDoubleUp == false then shouldDoubleUp = adjustment.shouldDoubleUp end
-		if adjustment.doubleUpShift then 
+		if adjustment.doubleUpShift then
 			doubleUpBack = adjustment.doubleUpShift
 			doubleUpForward = math.abs(doubleUpBack - (palletLength + SpawnPalletsStacked.config.doubleUpGap))
 		end
 		if adjustment.doubleUpGap then doubleUpForward = math.abs(doubleUpBack - (palletLength + adjustment.doubleUpGap)) end
-		
+
 		-- public debug
-		printf("---- - ADDING Adjustment; stack: %s double: %s back: %s forward: %s ", 
+		printf("---- - ADDING Adjustment; stack: %s double: %s back: %s forward: %s ",
 			shouldStack, shouldDoubleUp, doubleUpBack, doubleUpForward)
 	end
 
 	-- if the spawners are already stacked, then exit
-	if alreadyHasStackedPallets and not shouldStack then
+	if not shouldStack then
 		if SpawnPalletsStacked.debugFull then
-			printf("---- SPS Already Had Stacked Pallets!")
+			printf("---- SPS Should Not Stack!")
 		end
 		return
 	end
 
 	-- setup the spawn places object
 	local newSpawnPlaces = {}
-	for layer = 0, numberOfLayers, 1 do 
+	for layer = 0, numberOfLayers, 1 do
 		table.insert(newSpawnPlaces, layer, {})
 	end
 
 	-- determine if we're going to dynamically double up the row
 	local doubleUp = (shouldDoubleUp and totalRows == 1 and spawnPlaces[1].width > SpawnPalletsStacked.config.minWidthToDoubleUp)
-	
+
 	-- if the adjustment.shouldDoubleUp setting is true, this will force a double up even if there enough space.
-	if (adjustment ~= nil and adjustment.shouldDoubleUp == true) then 
+	if (adjustment ~= nil and adjustment.shouldDoubleUp == true) then
 		doubleUp = true
 	end
 
 	-- loop through the spawn places doubling them up as needed.
 	for i, spawnPlace in ipairs(spawnPlaces) do
 
-		if SpawnPalletsStacked.debugFull then 
-			printf("---- - Original SpawnPlace #%s: [%s, %s, %s]", i, 
+		if SpawnPalletsStacked.debugFull then
+			printf("---- - Original SpawnPlace #%s: [%s, %s, %s]", i,
 				spawnPlace.startX, spawnPlace.startY, spawnPlace.startZ)
 		end
-		
+
 		-- set the currentY from the original spawn place
 		local currentY = spawnPlace.startY
 
 		-- stack the original spawn place if needed.
 		if shouldStack and not SpawnPalletsStacked.debugStopMultiLayer then
-			for layer = 1, numberOfLayers, 1 do 
+			for layer = 1, numberOfLayers, 1 do
 				local newSpawnPlaceX = SpawnPalletsStacked.shallowCopy(spawnPlace)
 				currentY = currentY + layerOffset
 				newSpawnPlaceX.startY = currentY
-				if doubleUp then 
+				if doubleUp then
 					newSpawnPlaceX.startX = spawnPlace.startX - (spawnPlace.dirPerpX * doubleUpBack)
 					newSpawnPlaceX.startZ = spawnPlace.startZ - (spawnPlace.dirPerpZ * doubleUpBack)
 				end
@@ -563,7 +510,7 @@ function SpawnPalletsStacked.updateSingleSpawner(spawnPlaces, rootY, numberOfLay
 		end
 
 		if doubleUp then
-			if SpawnPalletsStacked.debugFull then 
+			if SpawnPalletsStacked.debugFull then
 				print("---- - We're doubling up, adding another spawn row!")
 			end
 
@@ -575,10 +522,10 @@ function SpawnPalletsStacked.updateSingleSpawner(spawnPlaces, rootY, numberOfLay
 			newSpawnPlace2.startX = spawnPlace.startX + (spawnPlace.dirPerpX * doubleUpForward)
 			newSpawnPlace2.startZ = spawnPlace.startZ + (spawnPlace.dirPerpZ * doubleUpForward)
 			table.insert(newSpawnPlaces[0], newSpawnPlace2)
-			
+
 			-- dupe the rest of the layers again, moved forward.
 			if shouldStack and not SpawnPalletsStacked.debugStopMultiLayer then
-				for layer = 1, numberOfLayers, 1 do 
+				for layer = 1, numberOfLayers, 1 do
 					local newSpawnPlace2X = SpawnPalletsStacked.shallowCopy(spawnPlace)
 					currentY = currentY + layerOffset
 					newSpawnPlace2X.startY = currentY
@@ -595,21 +542,14 @@ function SpawnPalletsStacked.updateSingleSpawner(spawnPlaces, rootY, numberOfLay
 			spawnPlace.startZ = spawnPlace.startZ - (spawnPlace.dirPerpZ * doubleUpBack)
 			spawnPlaces[i] = spawnPlace
 		end
-		
-	end
 
-	-- printf("*************************************************")
-	-- printf("**** existing spawnPlaces: %s", i)
-	-- DebugUtil.printTableRecursively(spawnPlaces)
-	-- printf("**** newSpawnPlaces: %s", numberOfLayers)
-	-- DebugUtil.printTableRecursively(newSpawnPlaces)
-	-- printf("*************************************************")
+	end
 
 	-- add the layers recursively
 	for layer, layerSpawnPlaces in pairs(newSpawnPlaces) do
 		for i, newSpawnPlace in ipairs(layerSpawnPlaces) do
 			table.insert(spawnPlaces, newSpawnPlace)
-			if SpawnPalletsStacked.debugFull then 
+			if SpawnPalletsStacked.debugFull then
 				printf("---- - Added Spawn Place: %s layer: %s at: [%s, %s, %s]", i , layer,
 				newSpawnPlace.startX, newSpawnPlace.startY, newSpawnPlace.startZ)
 			end
@@ -618,7 +558,7 @@ function SpawnPalletsStacked.updateSingleSpawner(spawnPlaces, rootY, numberOfLay
 
 	if SpawnPalletsStacked.debugFull then
 		print("---- -- stack complete --")
-	end	
+	end
 end
 
 --- Update all the pallet spawners across the map currently being loaded.
@@ -634,7 +574,7 @@ function SpawnPalletsStacked:updateAllPalletSpawners()
 
     -- Loop through all of the placeables on the map.
 	if g_currentMission ~= nil and g_currentMission.placeableSystem and g_currentMission.placeableSystem.placeables then
-        
+
 		-- loop through all the husbandries, and stack the pallets
 		for v=1, #g_currentMission.placeableSystem.placeables do
 
@@ -662,8 +602,10 @@ function SpawnPalletsStacked:updateAllPalletSpawners()
 				end
 				SpawnPalletsStacked.updateSingleBeehiveSpawner(thisPlaceable)
 
-			else 
-				printf("---- SPS: skipping: %s type: %s", thisPlaceable:getName(), typeName)
+			else
+				if SpawnPalletsStacked.debugFull then
+					printf("---- SPS: skipping: %s type: %s", thisPlaceable:getName(), typeName)
+				end
             end
 		end
     end
@@ -687,11 +629,11 @@ function SpawnPalletsStacked:onFinalizePlacement(savegame)
 
 	-- Check for the specialization of the placed item
 	if SpecializationUtil.hasSpecialization(PlaceableHusbandryPallets, self.specializations) then
-		
+
 		SpawnPalletsStacked.updateSingleHusbandry(self)
 
 	elseif SpecializationUtil.hasSpecialization(PlaceableProductionPoint, self.specializations) then
-		
+
 		SpawnPalletsStacked.updateSingleProduction(self)
 
 	end
@@ -705,8 +647,20 @@ function SpawnPalletsStacked:init()
 	source(g_currentModDirectory.."xmlConfigLoader.lua")
 	SpawnPalletsStacked.config = XmlConfigLoader.init()
 
+	DebugUtil.printTableRecursively(SpawnPalletsStacked.config)
+
+	if (SpawnPalletsStacked.config.debugMode == true) then
+		SpawnPalletsStacked.debugFull = true
+		print('-- SpawnPalletsStacked: DEBUG-ON')
+	end
+
+	if (SpawnPalletsStacked.config.debugStopMultiLayer == true) then
+		SpawnPalletsStacked.debugStopMultiLayer = true
+		print('-- SpawnPalletsStacked: DEBUG-STOP-STACKING')
+	end
+
     -- Update the spawners already on the map only after we have a baseMission
-	FSBaseMission.registerActionEvents = Utils.appendedFunction(FSBaseMission.registerActionEvents, SpawnPalletsStacked.updateAllPalletSpawners);	
+	FSBaseMission.registerActionEvents = Utils.appendedFunction(FSBaseMission.registerActionEvents, SpawnPalletsStacked.updateAllPalletSpawners);
 
 end
 

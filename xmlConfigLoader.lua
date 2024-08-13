@@ -1,11 +1,15 @@
 --- XML Config Loader
 -- @author GMNGjoy
--- @copyright 08/01/2023
+-- @copyright 08/12/2024
+-- @contact https://github.com/GMNGjoy/FS22_SpawnPalletsStacked
+-- @license CC0 1.0 Universal
+
 XmlConfigLoader = {}
 XmlConfigLoader.path = g_currentModDirectory;
 XmlConfigLoader.modName = g_currentModName;
 XmlConfigLoader.loadComplete = false;
-XmlConfigLoader.debugFull = true;
+XmlConfigLoader.debugMode = false;
+XmlConfigLoader.debugStopMultiLayer = false;
 
 -- configuration files and loading states
 XmlConfigLoader.internalConfig = {};
@@ -22,7 +26,6 @@ XmlConfigLoader.doubleUpGap = 1.1
 XmlConfigLoader.minWidthToDoubleUp = 3.0
 
 -- xmlConfigFiles
-XmlConfigLoader.metaConfigFile = "xml/metaConfig.xml"
 XmlConfigLoader.internalConfigFile = "xml/internalConfig.xml"
 XmlConfigLoader.defaultConfigFile = "xml/defaultConfig.xml"
 XmlConfigLoader.userConfigFile = "modSettings/SpawnPalletsStacked.xml"
@@ -44,31 +47,26 @@ function XmlConfigLoader.init()
 
 	-- determine the proper path for the user's settings file
 	local userSettingsFile = Utils.getFilename(XmlConfigLoader.userConfigFile, getUserProfileAppPath())
-	
+
 	local N = 0
 	local spawnConfig = {}
 	if fileExists(userSettingsFile) then
-		
-		print("---- - IMPORT user production overrides")
+
+		print("---- SPS Loader: IMPORT user production overrides")
 		XmlConfigLoader.userConfig = XmlConfigLoader.importConfig(userSettingsFile)
 		XmlConfigLoader.userConfigLoaded = true
-		
+
 		spawnConfig = XmlConfigLoader.mergeSettings()
 
 	else
-		
-		print("---- - CREATING user settings file")
+
+		print("---- SPS Loader: CREATING user settings file")
 		local defaultSettingsFile = Utils.getFilename(XmlConfigLoader.defaultConfigFile, XmlConfigLoader.path)
 		copyFile(defaultSettingsFile, userSettingsFile, false)
 
 		spawnConfig = XmlConfigLoader.internalConfig
 	end
 
-	-- printf("*************************************************")
-	-- printf("**** final spawnConfig")
-	-- DebugUtil.printTableRecursively(spawnConfig)
-	-- printf("*************************************************")
-	
 	return spawnConfig
 end
 
@@ -76,7 +74,7 @@ end
 ---@return table
 function XmlConfigLoader.mergeAdjustments()
 
-	if not XmlConfigLoader.userConfig.adjustments then 
+	if not XmlConfigLoader.userConfig.adjustments then
 		return XmlConfigLoader.internalConfig.adjustments
 	end
 
@@ -138,7 +136,7 @@ function XmlConfigLoader.mergeSettings()
 	local mergedConfig = SpawnPalletsStacked.shallowCopy(XmlConfigLoader.internalConfig)
 
 	for _k,_val in pairs(mergedConfig) do
-		if _k == 'adjustments' then 
+		if _k == 'adjustments' then
 			_val = XmlConfigLoader.mergeAdjustments()
 		elseif XmlConfigLoader.userConfig[_k] then
 			_val = XmlConfigLoader.userConfig[_k]
@@ -152,7 +150,7 @@ end
 
 --- Initiaze the XML file configuration
 function XmlConfigLoader.initXml()
-	
+
 	XmlConfigLoader.xmlSchema = XMLSchema.new(XmlConfigLoader.xmlTag)
 	XmlConfigLoader.xmlSchema:register(XMLValueType.FLOAT, XmlConfigLoader.xmlTag..".settings.maxSpawnHeight", "Sets the height to which pallets can spawn", XmlConfigLoader.maxSpawnHeight)
 	XmlConfigLoader.xmlSchema:register(XMLValueType.FLOAT, XmlConfigLoader.xmlTag..".settings.layerOffset", "How much of a gap is created between layers", XmlConfigLoader.layerOffset)
@@ -160,7 +158,9 @@ function XmlConfigLoader.initXml()
 	XmlConfigLoader.xmlSchema:register(XMLValueType.FLOAT, XmlConfigLoader.xmlTag..".settings.doubleUpShift", "How far to 'shift the first row to accomodate two rows", XmlConfigLoader.doubleUpShift)
 	XmlConfigLoader.xmlSchema:register(XMLValueType.FLOAT, XmlConfigLoader.xmlTag..".settings.doubleUpGap", "The spacing between the rows when a double up is applied", XmlConfigLoader.doubleUpGap)
 	XmlConfigLoader.xmlSchema:register(XMLValueType.FLOAT, XmlConfigLoader.xmlTag..".settings.minWidthToDoubleUp", "Minimum spawn width for pallets to be doubled up", XmlConfigLoader.minWidthToDoubleUp)
-	
+	XmlConfigLoader.xmlSchema:register(XMLValueType.BOOL, XmlConfigLoader.xmlTag..".settings.debugMode", "Turn debugMode on for additional log output", false)
+	XmlConfigLoader.xmlSchema:register(XMLValueType.BOOL, XmlConfigLoader.xmlTag..".settings.debugStopMultiLayer", "Disable stacking feature as a debug step", false)
+
 	local adjustmentKey = XmlConfigLoader.xmlTag..".adjustments.adjustment(?)"
 	local adjustmentSchemas = {
 		[1] = { ["schema"] = XmlConfigLoader.xmlSchema, ["key"] = adjustmentKey },
@@ -183,18 +183,20 @@ end
 function XmlConfigLoader.importConfig(xmlFilename)
 	local loadedConfig = {}
 	local xmlFile = XMLFile.load("xmlFile", xmlFilename, XmlConfigLoader.xmlSchema)
-	
+
 	if xmlFile ~= 0 then
-	
-		printf("---- - LOAD config file [%s]", xmlFilename)
-		
+
+		printf("---- SPS Loader: LOAD config file [%s]", xmlFilename)
+
 		loadedConfig.maxSpawnHeight = xmlFile:getValue(XmlConfigLoader.xmlTag..".settings.maxSpawnHeight", XmlConfigLoader.maxSpawnHeight)
 		loadedConfig.layerOffset = xmlFile:getValue(XmlConfigLoader.xmlTag..".settings.layerOffset", XmlConfigLoader.layerOffset)
 		loadedConfig.shouldDoubleUp = xmlFile:getValue(XmlConfigLoader.xmlTag..".settings.shouldDoubleUp", XmlConfigLoader.shouldDoubleUp)
 		loadedConfig.doubleUpShift = xmlFile:getValue(XmlConfigLoader.xmlTag..".settings.doubleUpShift", XmlConfigLoader.doubleUpShift)
 		loadedConfig.doubleUpGap = xmlFile:getValue(XmlConfigLoader.xmlTag..".settings.doubleUpGap", XmlConfigLoader.doubleUpGap)
 		loadedConfig.minWidthToDoubleUp = xmlFile:getValue(XmlConfigLoader.xmlTag..".settings.minWidthToDoubleUp", XmlConfigLoader.minWidthToDoubleUp)
-		
+		loadedConfig.debugMode = xmlFile:getValue(XmlConfigLoader.xmlTag..".settings.debugMode", XmlConfigLoader.debugMode)
+		loadedConfig.debugStopMultiLayer = xmlFile:getValue(XmlConfigLoader.xmlTag..".settings.debugStopMultiLayer", XmlConfigLoader.debugStopMultiLayer)
+
 		local internalAdjustments = {}
 
 		local i = 0
@@ -202,12 +204,9 @@ function XmlConfigLoader.importConfig(xmlFilename)
 			local configKey = string.format(XmlConfigLoader.xmlTag..".adjustments.adjustment(%d)", i)
 
 			if not xmlFile:hasProperty(configKey) then
-				-- if XmlConfigLoader.debugFull then
-				-- 	printf("---- BREAK path doesn't exist: %s ", configKey)
-				-- end
 				break
 			end
-			
+
 			-- init a new object
 			local adjustment = {}
 
@@ -223,7 +222,7 @@ function XmlConfigLoader.importConfig(xmlFilename)
 			adjustment.doubleUpGap = xmlFile:getValue(configKey.."#doubleUpGap", nil)
 
 			table.insert(internalAdjustments, i, adjustment)
-			
+
 			-- increment i to loop
 			i = i + 1
 

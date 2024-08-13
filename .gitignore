@@ -1,2 +1,4 @@
 *.zip
-_zipit.bat
+_artwork
+_debug
+_versions

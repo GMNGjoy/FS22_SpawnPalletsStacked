@@ -20,10 +20,13 @@ Why do the pallets only spawn on one layer? NO LONGER! This script mod solves th
 \
 \
 What this means is that if you have a production that has one "tall" item and multiple "short" items - the layering will be based on the tallest item. For a concrete example that was brought up in an [issue](https://github.com/GMNGjoy/FS22_SpawnPalletsStacked/issues/2) - The Greenhouse mod "Greenhouses with Pallets" does _not_ stack pallets, but this is because of the reason above, not because of the mod not working - those greenhouses include _Tree Saplings_ as one of the potential pallets that can spawn, which means that the "tallest" pallet that can spawn (2.7m) is actually taller than the preset `maxSpawnHeight` setting (2.0m). You can override that specific setting in your configuration file should you choose to, following the **Installation Instructions** below.
-- One other note is that "stacking" relies heavily on the pallet sizes being defined properly in the pallet XML files. If a pallet is defined to have an incorrect height (from what is visible), stacking may have issues.
+- The _stacking_ logic relies heavily on the pallet sizes being defined properly in the pallet XML files. If a pallet is defined to have an incorrect height (from what is visible), stacking may have issues.
 \
 \
 For an example of a "mod conflict" - Jos' [Liftable Pallets](https://www.farming-simulator.com/mod.php?lang=en&country=us&mod_id=237651&title=fs2022) mod (which replaces all basegame pallets to be liftable) has it's own configurations for each pallet, including the sizes of the pallets themselves. For an unknown reason - the WOOL pallet in that mod is listed to have a `2.0m` height, which means that if you have that mod installed - you won't see wool pallets stacking when they spawn, based on how stacking is calculated (detailed above).
+\
+\
+The opposite can also happen (with other mods) - if a pallet has a shorter height defined in the pallet XML file, it may "stack" and "glitch" by stacking multiple pallets (that were never intended to be stacked) where the visual for the pallet on top actually "sinks" into the pallet that it is stacked on. In this case, the error is in the pallet definition, not this mod.
 
 
 ## Installation Instructions
